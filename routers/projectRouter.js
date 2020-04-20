@@ -5,8 +5,8 @@ const project = require('../data/helpers/projectModel')
 // project
 // id (number)
 // name (string)
-// description (string)
-// completed (boolean)
+// description (string) (required)
+// completed (boolean) (required)
 
 router.get("/", (req,res) => { //get full list of projects
     project.get()
@@ -40,4 +40,22 @@ router.get("/:id", (req,res) => { //gets specific project by id
         })
 })
 
+router.post("/", (req,res) => { //adds a new project
+    if(!req.body.name || !req.body.description) {
+        return res.status(400).json({
+            message: "please put in a project name or project description"
+        })
+    }
+
+    project.insert(req.body)
+        .then((projects) => {
+            res.status(201).json(projects)
+        })
+        .catch((error) => {
+            console.log(error)
+            res.status(500).json({
+                message: "there was an error saving this project to the database"
+            })
+        })
+})
 module.exports = router 
