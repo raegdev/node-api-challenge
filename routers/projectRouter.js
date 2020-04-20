@@ -40,6 +40,25 @@ router.get("/:id", (req,res) => { //gets specific project by id
         })
 })
 
+router.get("/:id/actions", (req,res) =>{ //get spec proj's actions
+    project.getProjectActions(req.params.id)
+        .then((actions)=>{
+            if(actions) {
+                res.status(200).json(actions)
+            } else {
+                res.status(404).json({
+                    message: "this project has no actions"
+                })
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+            res.status(500).json({
+                message: "error retrieving the actions"
+            })
+        })
+})
+
 router.post("/", (req,res) => { //adds a new project
     if(!req.body.name || !req.body.description) {
         return res.status(400).json({
