@@ -71,4 +71,17 @@ router.put("/:id", (req,res) => { //edit action
             })
         })
 })
+
+router.delete("/:id", (req,res) => {
+    action.remove(req.params.id)
+        .then(() => {
+            res.status(200).end
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: "unable to remove action"
+            })
+        })
+})
 module.exports = router 
