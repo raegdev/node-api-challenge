@@ -58,4 +58,17 @@ router.post("/", (req,res) => { //adds a new action
             })
         })
 })
+
+router.put("/:id", (req,res) => { //edit action 
+    action.update(req.params.id, req.body)
+        .then(upAct => {
+            res.status(200).json(upAct)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: "unable to edit action"
+            })
+        })
+})
 module.exports = router 
