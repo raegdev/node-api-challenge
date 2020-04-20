@@ -58,4 +58,18 @@ router.post("/", (req,res) => { //adds a new project
             })
         })
 })
+
+router.put("/:id", (req,res) => { //updates an existing project
+    project.update(req.params.id, req.body) 
+        .then((updatedProj) => {
+            res.status(200).json(updatedProj)
+        })
+        .catch((error) =>{
+            console.log(error)
+            res.status(500).json({
+                message: "unable to edit project"
+            })
+        })
+})
+
 module.exports = router 
