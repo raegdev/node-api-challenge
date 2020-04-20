@@ -39,4 +39,23 @@ router.get("/:id", (req,res) => { //get spec action
             })
         })
 })
+
+router.post("/", (req,res) => { //adds a new action
+    if(!req.body.project_id || !req.body.description || !req.body.notes) {
+        return res.status(400).json({
+            message: "make sure the project id is selected, description and notes filled out"
+        })
+    }
+
+    action.insert(req.body)
+        .then(newAct => {
+            res.status(201).json(newAct)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: "there was an error saving the new action"
+            })
+        })
+})
 module.exports = router 
