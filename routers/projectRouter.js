@@ -21,4 +21,23 @@ router.get("/", (req,res) => { //get full list of projects
         })
 })
 
+router.get("/:id", (req,res) => { //gets specific project by id
+    project.get(req.params.id)
+        .then((projects) => {
+            if (projects) {
+                res.status(200).json(projects)
+            } else {
+                res.status(404).json({
+                    message: "the project at this id does not exist"
+                })
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+            res.status(500).json({
+                message: "error retrieving projects"
+            })
+        })
+})
+
 module.exports = router 
