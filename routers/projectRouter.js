@@ -72,4 +72,18 @@ router.put("/:id", (req,res) => { //updates an existing project
         })
 })
 
+router.delete("/:id", (req,res) => { //delete a project
+    project.remove(req.params.id)
+        .then(() => {
+            res.status(200).end()
+        })
+        .catch((error) => {
+            console.log(error)
+            res.status(500).json({
+                message: 'unable to remove project'
+            })
+        })
+    
+})
+
 module.exports = router 
