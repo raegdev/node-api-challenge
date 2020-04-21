@@ -75,7 +75,7 @@ router.put("/:id", (req,res) => { //edit action
 router.delete("/:id", (req,res) => {
     action.remove(req.params.id)
         .then(() => {
-            res.status(200).end
+            res.status(200).end()
         })
         .catch(err => {
             console.log(err)
